@@ -1,79 +1,49 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Firebase from 'firebase';
-import ReactFireMixin from 'reactfire';
 
-var Contributions = React.createClass({
-  render: function() {
-    var createItem = function(item, index) {
-      return (
-        <li key={ index }>
-          { item.title }
-          { item.desciption }
-        </li>
-      );
-    };
+import ContributionsList from './contributionsList.jsx'
+import ContributionsForm from './contributionsForm.jsx'
 
-    return (
-      <ul>
-        { this.props.contributions.map(createItem) }
-      </ul>
-    );
+class App extends React.Component {
+
+  /**
+   * The constructor.
+   * @param  {Object} props The properties.
+   */
+  constructor(props) {
+    super(props);
+    this.state = {contributions: []};
+    this.handleContributions = this.handleContributions.bind(this);
   }
-});
 
-var App = React.createClass({
-  mixins: [ReactFireMixin],
-  getInitialState: function() {
-    return {contributions: [], text: ""};
-  },
   /**
-   * When the component gets mounted
+   * Updates firebas with teh new state after the submit button was clicked.
+   * @param  {Event} event The submit event.
    */
-  componentWillMount: function() {
-    const firebaseContributions = new Firebase('https://contriboot-2016.firebaseio.com/contributions'),
-      firebaseInterests = new Firebase('https://contriboot-2016.firebaseio.com/interests');
+  handleContributions(contributions) {
+    this.setState({contributions: contributions});
+  }
 
-    this.bindAsArray(firebaseContributions, 'contributions');
-    this.bindAsArray(firebaseInterests, 'interests');
-  },
-  onChange: function(e) {
-    this.setState({[e.target.name]: e.target.value});
-  },
-
-  handleSubmit: function(e) {
-    e.preventDefault();
-    if (this.state.title !== '') {
-      this.firebaseRefs['contributions'].push({
-        title: this.state.title,
-        desciption: this.state.desciption
-      });
-
-      var nextItems = this.state.contributions.concat([
-        {
-          text: this.state.title
-        }
-      ]);
-      this.setState({contributions: nextItems, text: ""});
-    }
-  },
   /**
-   * Render!
-   * @return {React.Element} Something rendered
+   * Returns the component.
+   * @return {React.Element}
    */
-  render: function() {
+  render() {
     return (
       <div>
-        <Contributions contributions={this.state.contributions}/>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} name="title" value={this.state.title}/>
-          <textarea onChange={this.onChange} name="desciption" value={this.state.desciption}/>
-          <button>{"Add #"}</button>
-        </form>
+        <ContributionsList
+          contributions={this.state.contributions} />
+
+        <ContributionsForm
+          onContributionsUpdate={this.handleContributions} />
+
       </div>
     )
   }
-});
+};
 
-render(
-  <App/>, document.querySelector('.mount'))
+App.InitialState = {
+  contributions: []
+};
+
+render(<App/>, document.querySelector('.mount'))
