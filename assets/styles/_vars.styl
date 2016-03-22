@@ -1,3 +1,27 @@
 /**
  * Variables
  */
+
+ /**
+  * calculate an rem-value for a given pixel-size
+  */
+ remCalc(_px, _base = 16)
+   return (_px / _base)rem
+
+ /**
+  * calculate an em-value for a given pixel-size
+  */
+ emCalc(_px, _base = 16)
+   return (_px / _base)em
+
+ $mainFontColor = #fff
+
+ $blue = #004b9f
+ $lighterBlue =  #0069b4
+ $lightBlue = #338bca
+
+ $backgroundColor = #bbb4b4
+
+
+ $mediaQuerySmall = '(min-width: 600px)'
+ $mediaQueryBig = '(min-width: 900px)'

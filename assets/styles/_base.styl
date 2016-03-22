@@ -1,18 +1,158 @@
-/**
- * Base styles
- */
-html
-  box-sizing: border-box
-
 *, *:before, *:after
-  box-sizing: inherit
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+::-moz-selection
+  background: rgba(145, 28, 128, 0.8)
+
+::selection
+  background: rgba(145, 28, 128, 0.8)
+
+::-webkit-input-placeholder
+  color: rgba(255, 255, 255, 0.5)
+
+:-moz-placeholder
+  color: rgba(255, 255, 255, 0.5)
+
+::-moz-placeholder
+  color: rgba(255, 255, 255, 0.5)
+
+:-ms-input-placeholder
+  color: rgba(255, 255, 255, 0.5)
+
+html
+  min-height: 100%
+  font-size: 100%
+  font-size: 11px
+  tap-highlight-color: rgba(0, 0, 0, 0)
+
+  @media $mediaQuerySmall
+    font-size: 100%
 
 body
-  font-family: 'Raleway', sans-serif
-  color: #fff
   font-size: 1rem
-  line-height: 1.2
-  padding: 0px 1.5625em
-  background: #BBB4B4
-  font-feature-settings: 'kern'
+
+  display: flex
+  align-items: center
+  flex-direction: column
+
+  padding: 0 emCalc(25px)
+  background: $backgroundColor
+  font-family: Raleway, sans-serif
+  color: $mainFontColor
+  line-height: 1.666
+  font-feature-settings: 'kern' 1
+
   min-height: 100%
+
+  overflow-x: hidden
+
+header,
+nav,
+section
+  max-width: emCalc(1200)
+  width: 100%
+
+p
+  margin-bottom: emCalc(10)
+a
+  color: $mainFontColor
+  text-decoration: none
+  font-weight: 800
+  padding: .2em
+  border: 1px solid transparent
+  border-bottom-color: #fff
+  transition: border .25s ease-in-out
+
+  &:hover, &:focus
+    border-bottom-color: rgba(255, 255, 255, 0.5)
+
+img
+  max-width: 100%
+
+ul
+  list-style: none
+
+li
+  margin: 0
+
+dt, dd
+  display: inline
+  margin: 0
+
+dd:after
+  content: '\A'
+  white-space: pre
+
+h1, h2, h3, h4
+  margin: 1em 0 .35em 0
+  line-height: 1.2
+
+h1
+  font-size: remCalc(63)
+  text-transform: uppercase
+  font-weight: 100
+  text-align: center
+
+h2
+  font-size: remCalc(50)
+  font-weight: 100
+  text-transform: uppercase
+  text-align: center
+
+h3
+  font-size: remCalc(32)
+  font-weight: 400
+
+h4
+  font-size: remCalc(20)
+  font-weight: 400
+
+.bold
+  font-weight: 800
+
+.light
+  font-weight: 100
+  text-transform: none
+
+.exerpt
+  font-size: remCalc(18)
+
+button,
+.button
+  font-size: remCalc(22)
+  display: inline-block
+  padding: emCalc(20, 18) emCalc(30, 18)
+
+  box-shadow: 2px 2px 0px 2px $blue
+  border: transparent solid
+  border-width: 0 emCalc(4, 18) emCalc(4, 18) 0
+  border-radius: emCalc(4, 18)
+
+  color: $mainFontColor
+  letter-spacing: .5px
+
+  background: $lighterBlue
+
+  transition: background-color .15s ease-in-out
+
+  &:hover, &:focus
+    border-color: transparent
+    background-color: $blue
+
+  @media $mediaQuerySmall
+    font-size: remCalc(18)
+
+  &--small
+    font-size: remCalc(14)
+
+/**
+ * Mapbox GL Infowindow Popup
+ */
+.mapboxgl-popup-content
+  color: black
+  a
+    color: black
+.mapboxgl-popup-close-button
+  display: none

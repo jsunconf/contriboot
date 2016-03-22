@@ -1,0 +1,45 @@
+.section
+  font-size: 1rem
+  display: flex
+  margin-top: emCalc(100)
+
+  &--date
+    justify-content: center
+    width: auto
+    flex-grow: 1
+
+    .section__content
+      width: auto
+
+    h2
+      text-align: center
+
+  &--coc
+    justify-content: center
+    margin-top: emCalc(100)
+
+  &__content
+    width: 100%
+    text-align: center
+
+    @media $mediaQuerySmall
+      text-align: left
+
+    @media $mediaQueryBig
+      width: 48%
+
+    &--full-width
+      @media $mediaQueryBig
+        width: 100%
+
+    &--centered
+      text-align: center
+
+  &__copy
+    font-size: emCalc(24)
+    line-height: 1.6
+
+    @media $mediaQuerySmall
+      font-size: emCalc(18)
+      line-height: 2
+      margin-bottom: emCalc(24, 18)
