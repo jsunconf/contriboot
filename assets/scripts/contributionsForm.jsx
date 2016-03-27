@@ -78,17 +78,23 @@ var ContributionsForm = React.createClass({
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <input
-            onChange={event => this.onChange(event.target)}
-            name="title"
-            value={this.state.title} />
-
-          <textarea
-            onChange={event => this.onChange(event.target)}
-            name="description"
-            value={this.state.description} />
-
-          <button>Add contribution</button>
+          <fieldset>
+            <label for="title">Title</label>
+            <input
+              onChange={event => this.onChange(event.target)}
+              name="title"
+              className="form-control"
+              value={this.state.title} />
+          </fieldset>
+          <fieldset>
+            <label for="description">Description</label>
+            <textarea
+              onChange={event => this.onChange(event.target)}
+              name="description"
+              className="form-control"
+              value={this.state.description} />
+          </fieldset>
+          <button className="btn btn-primary">Add contribution</button>
         </form>
 
       </div>

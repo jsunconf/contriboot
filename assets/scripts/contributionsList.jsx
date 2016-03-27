@@ -4,9 +4,12 @@ export default class ContributionsList extends React.Component {
 
   renderContribution(item, index) {
     return (
-      <li key={index}>
-        {item.title}
-        {item.desciption}
+      <li key={index} className="contribution">
+        <div className="contribution-title">
+          <div className="title">{item.title}</div>
+          <div className="author"> by Author</div>
+        </div>
+        <div className="description">{item.description}</div>
       </li>
     );
   }
@@ -14,7 +17,7 @@ export default class ContributionsList extends React.Component {
     const {contributions} = this.props;
 
     return (
-      <ul>
+      <ul className='contributions'>
         {contributions.map(this.renderContribution)}
       </ul>
     );

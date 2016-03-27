@@ -1,6 +1,6 @@
 {
   "name": "contriboot",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Contributions & Interests",
   "scripts": {
     "start": "parallelshell 'npm run watch' 'http-server -o'",
