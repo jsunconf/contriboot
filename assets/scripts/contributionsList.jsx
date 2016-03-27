@@ -7,7 +7,8 @@ export default class ContributionsList extends React.Component {
       <li key={index} className="contribution">
         <div className="contribution-title">
           <div className="title">{item.title}</div>
-          <div className="author"> by Author</div>
+          <div className="author">
+            &nbsp;by {item.username}</div>
         </div>
         <div className="description">{item.description}</div>
       </li>

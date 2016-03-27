@@ -3,6 +3,8 @@ import React from 'react';
 import Firebase from 'firebase';
 import ReactFireMixin from 'reactfire';
 
+import {FIREBASE_CONTRIBUTIONS, FIREBASE_INTERESTS, contributionFirebase} from './firebaseConnection';
+
 var ContributionsForm = React.createClass({
 
   mixins: [ReactFireMixin],
@@ -12,18 +14,15 @@ var ContributionsForm = React.createClass({
    * @return {Object}
    */
   getInitialState: function() {
-    return {
-      contributions: [],
-      text: ""
-    };
+    return {contributions: [], text: ""};
   },
 
   /**
    * Initialises the firebase setup.
    */
   componentWillMount: function() {
-    const firebaseContributions = new Firebase('https://contriboot-2016.firebaseio.com/contributions'),
-      firebaseInterests = new Firebase('https://contriboot-2016.firebaseio.com/interests');
+    const firebaseContributions = contributionFirebase.reference,
+      firebaseInterests = new Firebase(FIREBASE_INTERESTS);
 
     firebaseContributions.on('value', function(dataSnapshot) {
       this.props.onContributionsUpdate(this.state.contributions);
@@ -39,9 +38,7 @@ var ContributionsForm = React.createClass({
    * @param  {Evemt} event The change event
    */
   onChange: function({name, value}) {
-    this.setState({
-      [name]: value
-    });
+    this.setState({[name]: value});
   },
 
   /**
@@ -50,25 +47,28 @@ var ContributionsForm = React.createClass({
    */
   onSubmit: function(event) {
     event.preventDefault();
-
-    if (this.state.title !== '') {
-      this.firebaseRefs['contributions'].push({
-        title: this.state.title,
-        description: this.state.description
-      });
-
-      const contributions = [...this.state.contributions, {
-          title: this.state.title,
-          description: this.state.description
-        }];
-
-      this.setState({
-        contributions: contributions,
-        text: ""
-      });
-
-      this.props.onContributionsUpdate(contributions);
+    const authData = contributionFirebase.reference.getAuth();
+    if (authData === null) {
+      // only show form if logged in with github -> prevent this in main.jsx
+      return;
     }
+    if (this.state.title !== '') {
+
+        this.firebaseRefs['contributions'].push({title: this.state.title, description: this.state.description, uid: authData.auth.uid, username: authData.github.username});
+
+        const contributions = [
+          ...this.state.contributions, {
+            title: this.state.title,
+            description: this.state.description,
+            uid: authData.auth.uid,
+            username: authData.github.username
+          }
+        ];
+
+        this.setState({contributions: contributions, text: ""});
+
+        this.props.onContributionsUpdate(contributions);
+      }
   },
   /**
    * Returns the component.
@@ -80,19 +80,11 @@ var ContributionsForm = React.createClass({
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label for="title">Title</label>
-            <input
-              onChange={event => this.onChange(event.target)}
-              name="title"
-              className="form-control"
-              value={this.state.title} />
+            <input onChange={event => this.onChange(event.target)} name="title" className="form-control" value={this.state.title}/>
           </fieldset>
           <fieldset>
             <label for="description">Description</label>
-            <textarea
-              onChange={event => this.onChange(event.target)}
-              name="description"
-              className="form-control"
-              value={this.state.description} />
+            <textarea onChange={event => this.onChange(event.target)} name="description" className="form-control" value={this.state.description}/>
           </fieldset>
           <button className="btn btn-primary">Add contribution</button>
         </form>

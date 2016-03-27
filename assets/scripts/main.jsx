@@ -3,6 +3,10 @@ import {render} from 'react-dom';
 
 import ContributionsList from './contributionsList.jsx'
 import ContributionsForm from './contributionsForm.jsx'
+import LoginWithGithub from './login.jsx'
+import ShowLoginStatusWithGithub from './showLoginStatus.jsx'
+
+import {contributionFirebase} from './firebaseConnection';
 
 class App extends React.Component {
 
@@ -31,6 +35,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {contributionFirebase.hasAuthentication ? <ShowLoginStatusWithGithub /> : <LoginWithGithub/>}
+
         <ContributionsList
           contributions={this.state.contributions} />
 
