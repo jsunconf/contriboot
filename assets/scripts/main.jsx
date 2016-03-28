@@ -1,59 +1,105 @@
 import React from 'react';
 import {render} from 'react-dom';
+import ReactFireMixin from 'reactfire';
 
-import ContributionsList from './contributionsList.jsx'
-import ContributionsForm from './contributionsForm.jsx'
-import LoginWithGithub from './login.jsx'
-import ShowLoginStatusWithGithub from './showLoginStatus.jsx'
+import {FIREBASE_URL} from './config';
 
-import {contributionFirebase} from './firebaseConnection';
+import Login from './login.jsx'
+import ShowLoginStatus from './show-login-status.jsx'
+import EntriesList from './entries-list.jsx'
+import AddEntriesForm from './add-entries-form.jsx'
 
-class App extends React.Component {
+const App = React.createClass({
+  /**
+   * Connect mixins
+   * @type {Array}
+   */
+  mixins: [ReactFireMixin],
 
   /**
-   * The constructor.
-   * @param  {Object} props The properties.
+   * Returns the initial state.
+   * @return {Object}
    */
-  constructor(props) {
-    super(props);
-    this.state = {contributions: []};
-    this.handleContributions = this.handleContributions.bind(this);
-  }
+  getInitialState: function() {
+    return {
+      contributions: [],
+      interests: [],
+      user: null
+    };
+  },
 
   /**
-   * Updates firebas with teh new state after the submit button was clicked.
-   * @param  {Event} event The submit event.
+   * Initialises the firebase setup.
    */
-  handleContributions(contributions) {
-    this.setState({contributions: contributions});
-  }
+  componentWillMount: function() {
+    const contribRef = new Firebase(`${FIREBASE_URL}/contributions`),
+      interestsRef = new Firebase(`${FIREBASE_URL}/interests`),
+      authRef = new Firebase(FIREBASE_URL);
+
+    authRef.onAuth(rawUser => this.setState({user: this.getUserData(rawUser)}));
+
+    this.bindAsArray(contribRef, 'contributions');
+    this.bindAsArray(interestsRef, 'interests');
+  },
+
+  /**
+   * Get the current user data
+   * @param {Object} user The raw user data
+   * @return {Object} The users data
+   */
+  getUserData: function(user) {
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.github.id,
+      username: user.github.username,
+      displayName: user.github.displayName,
+      profileImageURL: user.github.profileImageURL
+    };
+  },
+
+  /**
+   * Add a new entry to the contributions
+   * @param  {Object} newEntry The new entry
+   */
+  handleEntryAdd: function(newEntry) {
+    this.firebaseRefs.contributions.push({
+      title: newEntry.title,
+      description: newEntry.description,
+      user: this.state.user,
+      votes: [this.state.user]
+    });
+  },
 
   /**
    * Returns the component.
    * @return {React.Element}
    */
-  render() {
-    const isLoggedin = contributionFirebase.hasAuthentication;
+  render: function() {
+    const isLoggedin = this.state.user !== null;
 
-    return (
-      <div>
-        {isLoggedin ? <ShowLoginStatusWithGithub /> : <LoginWithGithub/>}
+    return <div>
+      <EntriesList
+        title='Contributions'
+        entries={this.state.contributions} />
+      <EntriesList
+        title='Interests'
+        entries={this.state.interests} />
 
-        <ContributionsList
-          contributions={this.state.contributions} />
-
-        {isLoggedin ?
-          <ContributionsForm
-            onContributionsUpdate={this.handleContributions} /> :
-          null
-        }
-      </div>
-    )
+      {isLoggedin ?
+        <ShowLoginStatus
+          user={this.state.user} /> :
+        <Login />
+      }
+      {isLoggedin ?
+        <AddEntriesForm
+          onEntryAdd={this.handleEntryAdd} /> :
+        null
+      }
+    </div>;
   }
-};
-
-App.InitialState = {
-  contributions: []
-};
+});
 
 render(<App/>, document.querySelector('.mount'))
