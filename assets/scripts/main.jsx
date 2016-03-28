@@ -24,6 +24,7 @@ const App = React.createClass({
     return {
       contributions: [],
       interests: [],
+      votes: [],
       user: null
     };
   },
@@ -34,12 +35,14 @@ const App = React.createClass({
   componentWillMount: function() {
     const contribRef = new Firebase(`${FIREBASE_URL}/contributions`),
       interestsRef = new Firebase(`${FIREBASE_URL}/interests`),
+      votesRef = new Firebase(`${FIREBASE_URL}/votes`),
       authRef = new Firebase(FIREBASE_URL);
 
     authRef.onAuth(rawUser => this.setState({user: this.getUserData(rawUser)}));
 
     this.bindAsArray(contribRef, 'contributions');
     this.bindAsArray(interestsRef, 'interests');
+    this.bindAsArray(votesRef, 'votes');
   },
 
   /**
@@ -65,14 +68,15 @@ const App = React.createClass({
    * @param  {Object} newEntry The new entry
    */
   handleEntryAdd: function(newEntry) {
-    const ref = this.firebaseRefs[newEntry.type];
+    const typeRef = this.firebaseRefs[newEntry.type],
+      votesRef = this.firebaseRefs.votes,
+      newEntryRef = typeRef.push({
+        title: newEntry.title,
+        description: newEntry.description,
+        user: this.state.user
+      });
 
-    ref && ref.push({
-      title: newEntry.title,
-      description: newEntry.description,
-      user: this.state.user,
-      votes: 1
-    });
+    votesRef.child(newEntryRef.key()).set(1)
   },
 
   /**
@@ -86,11 +90,13 @@ const App = React.createClass({
       <EntriesList
         title='Contributions'
         type='contributions'
-        entries={this.state.contributions} />
+        entries={this.state.contributions}
+        votes={this.state.votes} />
       <EntriesList
         title='Interests'
         type='interests'
-        entries={this.state.interests} />
+        entries={this.state.interests}
+        votes={this.state.votes} />
 
       {isLoggedin ?
         <ShowLoginStatus
