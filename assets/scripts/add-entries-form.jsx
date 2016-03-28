@@ -37,53 +37,54 @@ export default class extends React.Component {
    * @return {React.Element}
    */
   render() {
+    const submitText = 'Add ' +
+      (this.state.type === 'contributions' ? 'Contribution' : 'Interest');
+
     return <form onSubmit={this.onSubmit.bind(this)}>
-      <fieldset>
-        <label>
-          Type
-        </label>
-        <input type='radio'
-          onChange={event => this.setState({type: event.target.value})}
-          id='type--contributions'
-          name='type'
-          className=''
-          checked={this.state.type === 'contributions'}
-          value='contributions' />
-        <label htmlFor='type--contributions'>Contributions</label>
-        <input type='radio'
-          onChange={event => this.setState({type: event.target.value})}
-          id='type--interests'
-          name='type'
-          className=''
-          checked={this.state.type === 'interests'}
-          value='interests' />
-        <label htmlFor='type--interests'>Interests</label>
+      <label>
+        Type
+      </label>
+      <input type='radio'
+        onChange={event => this.setState({type: event.target.value})}
+        id='type--contributions'
+        name='type'
+        className=''
+        checked={this.state.type === 'contributions'}
+        value='contributions' />
+      <label htmlFor='type--contributions'>Contributions</label>
+      <input type='radio'
+        onChange={event => this.setState({type: event.target.value})}
+        id='type--interests'
+        name='type'
+        className=''
+        checked={this.state.type === 'interests'}
+        value='interests' />
+      <label htmlFor='type--interests'>Interests</label>
 
-        <label htmlFor='title'>
-          Title
-        </label>
-        <input type='text'
-          onChange={event => this.setState({title: event.target.value})}
-          id='title'
-          name='title'
-          className=''
-          value={this.state.title} />
+      <label htmlFor='title'>
+        Title
+      </label>
+      <input type='text'
+        onChange={event => this.setState({title: event.target.value})}
+        id='title'
+        name='title'
+        className=''
+        value={this.state.title} />
 
-        <label htmlFor='description'>
-          Description
-        </label>
-        <textarea
-          onChange={event => this.setState({description: event.target.value})}
-          id='description'
-          name='description'
-          className='form-control'
-          value={this.state.description} />
-      </fieldset>
+      <label htmlFor='description'>
+        Description
+      </label>
+      <textarea
+        onChange={event => this.setState({description: event.target.value})}
+        id='description'
+        name='description'
+        className='form-control'
+        value={this.state.description} />
 
       <button
         type='submit'
         className='button'>
-          Add contribution
+          {submitText}
       </button>
     </form>;
   }
