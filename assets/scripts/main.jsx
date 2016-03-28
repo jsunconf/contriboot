@@ -71,7 +71,7 @@ const App = React.createClass({
       title: newEntry.title,
       description: newEntry.description,
       user: this.state.user,
-      votes: [this.state.user.id]
+      votes: 1
     });
   },
 
@@ -85,9 +85,11 @@ const App = React.createClass({
     return <div>
       <EntriesList
         title='Contributions'
+        type='contributions'
         entries={this.state.contributions} />
       <EntriesList
         title='Interests'
+        type='interests'
         entries={this.state.interests} />
 
       {isLoggedin ?
