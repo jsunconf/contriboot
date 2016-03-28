@@ -71,7 +71,7 @@ const App = React.createClass({
       title: newEntry.title,
       description: newEntry.description,
       user: this.state.user,
-      votes: [this.state.user]
+      votes: [this.state.user.id]
     });
   },
 
