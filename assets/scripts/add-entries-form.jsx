@@ -42,7 +42,7 @@ export default class extends React.Component {
 
     return <form onSubmit={this.onSubmit.bind(this)}>
       <label>
-        Type
+        I want to submit a
       </label>
       <input type='radio'
         onChange={event => this.setState({type: event.target.value})}
@@ -51,7 +51,7 @@ export default class extends React.Component {
         className=''
         checked={this.state.type === 'contributions'}
         value='contributions' />
-      <label htmlFor='type--contributions'>Contributions</label>
+      <label htmlFor='type--contributions'>Contribution</label>
       <input type='radio'
         onChange={event => this.setState({type: event.target.value})}
         id='type--interests'
@@ -59,7 +59,7 @@ export default class extends React.Component {
         className=''
         checked={this.state.type === 'interests'}
         value='interests' />
-      <label htmlFor='type--interests'>Interests</label>
+      <label htmlFor='type--interests'>Interest</label>
 
       <label htmlFor='title'>
         Title
@@ -83,6 +83,7 @@ export default class extends React.Component {
 
       <button
         type='submit'
+        disabled={this.state.title === '' || this.state.description === ''}
         className='button'>
           {submitText}
       </button>
