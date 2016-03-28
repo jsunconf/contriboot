@@ -21,8 +21,6 @@ export default class extends React.Component {
    * @return {JSX} The list
    */
   render() {
-    console.log(this.props.votes);
-
     return <div>
       <h2>{this.props.title}</h2>
 
