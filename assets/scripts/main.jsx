@@ -33,16 +33,20 @@ class App extends React.Component {
    * @return {React.Element}
    */
   render() {
+    const isLoggedin = contributionFirebase.hasAuthentication;
+
     return (
       <div>
-        {contributionFirebase.hasAuthentication ? <ShowLoginStatusWithGithub /> : <LoginWithGithub/>}
+        {isLoggedin ? <ShowLoginStatusWithGithub /> : <LoginWithGithub/>}
 
         <ContributionsList
           contributions={this.state.contributions} />
 
-        <ContributionsForm
-          onContributionsUpdate={this.handleContributions} />
-
+        {isLoggedin ?
+          <ContributionsForm
+            onContributionsUpdate={this.handleContributions} /> :
+          null
+        }
       </div>
     )
   }
