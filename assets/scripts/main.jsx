@@ -65,7 +65,9 @@ const App = React.createClass({
    * @param  {Object} newEntry The new entry
    */
   handleEntryAdd: function(newEntry) {
-    this.firebaseRefs.contributions.push({
+    const ref = this.firebaseRefs[newEntry.type];
+
+    ref && ref.push({
       title: newEntry.title,
       description: newEntry.description,
       user: this.state.user,

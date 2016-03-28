@@ -1,6 +1,7 @@
 import React from 'react';
 
 const initialState = {
+  type: 'contributions',
   title: '',
   description: ''
 }
@@ -23,6 +24,7 @@ export default class extends React.Component {
     event.preventDefault();
 
     this.props.onEntryAdd({
+      type: this.state.type,
       title: this.state.title,
       description: this.state.description
     });
@@ -37,11 +39,32 @@ export default class extends React.Component {
   render() {
     return <form onSubmit={this.onSubmit.bind(this)}>
       <fieldset>
+        <label>
+          Type
+        </label>
+        <input type='radio'
+          onChange={event => this.setState({type: event.target.value})}
+          id='type--contributions'
+          name='type'
+          className=''
+          checked={this.state.type === 'contributions'}
+          value='contributions' />
+        <label htmlFor='type--contributions'>Contributions</label>
+        <input type='radio'
+          onChange={event => this.setState({type: event.target.value})}
+          id='type--interests'
+          name='type'
+          className=''
+          checked={this.state.type === 'interests'}
+          value='interests' />
+        <label htmlFor='type--interests'>Interests</label>
+
         <label htmlFor='title'>
           Title
         </label>
-        <input
+        <input type='text'
           onChange={event => this.setState({title: event.target.value})}
+          id='title'
           name='title'
           className=''
           value={this.state.title} />
@@ -51,6 +74,7 @@ export default class extends React.Component {
         </label>
         <textarea
           onChange={event => this.setState({description: event.target.value})}
+          id='description'
           name='description'
           className='form-control'
           value={this.state.description} />
