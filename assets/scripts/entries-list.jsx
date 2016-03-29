@@ -21,36 +21,42 @@ export default class extends React.Component {
    * @return {JSX} The list
    */
   render() {
-    return <div>
-      <h2>{this.props.title}</h2>
+    return (
+      <div>
+        <h2>{this.props.title}</h2>
 
-      <ul className='entries'>
-        {this.props.entries.map((entry, index) => {
-          const votesObj = this.props.votes.find(vote => {
-              return vote['.key'] === entry['.key'];
-            }),
-            votes = votesObj && votesObj['.value'];
+        <ul className='entries'>
+          {this.props.entries.map((entry, index) => {
+            const votesObj = this.props.votes.find(vote => {
+                return vote['.key'] === entry['.key'];
+              }),
+              votes = votesObj && votesObj['.value'];
 
-          return <li key={index} className="entry">
-            <div className="entry__header">
-              <span className="entry__header__title">{entry.title}</span>
-              <span className="entry__header__author">
-                &nbsp;by {entry.user.username}
-              </span>
-              <span className="entry__header__votes">
-                &nbsp;with {votes} votes
-              </span>
-              <button type='button'
-                onClick={() => this.handleVote(entry['.key'], votes)}>
-                  Vote
-              </button>
-            </div>
-            <div className="entry__description">
-              {entry.description}
-            </div>
-          </li>;
-        })}
-      </ul>
-    </div>;
+            return <li key={index} className="entry">
+              <div className="entry__header">
+                <span className="entry__header__title">
+                  {entry.title}
+                </span>
+
+                <span className="entry__header__votes">
+                  {votes} &#9733;
+                  <button type='button' className="entry__header__votes__button"
+                    onClick={() => this.handleVote(entry['.key'], votes)}>
+                      Vote
+                  </button>
+                </span>
+
+                <span className="entry__header__author">
+                  by {entry.user.username}
+                </span>
+              </div>
+              <div className="entry__description">
+                {entry.description}
+              </div>
+            </li>;
+          })}
+        </ul>
+      </div>
+    );
   }
 }

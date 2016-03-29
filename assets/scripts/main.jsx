@@ -86,7 +86,7 @@ const App = React.createClass({
   render: function() {
     const isLoggedin = this.state.user !== null;
 
-    return <div>
+    return <div className="contriboot">
       <EntriesList
         title='Contributions'
         type='contributions'
