@@ -23,11 +23,13 @@ export default class extends React.Component {
    * Render the login part
    */
   render() {
-    return <button
-      type='button'
-      className='button button--login'
-      onClick={this.loginWithGithub}>
+    return (
+      <button
+        type='button'
+        className='button button--small button--login'
+        onClick={this.loginWithGithub}>
         Login with github
-    </button>;
+      </button>
+    );
   }
 }

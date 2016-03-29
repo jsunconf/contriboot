@@ -86,29 +86,33 @@ const App = React.createClass({
   render: function() {
     const isLoggedin = this.state.user !== null;
 
-    return <div className="contriboot">
-      <EntriesList
-        title='Contributions'
-        type='contributions'
-        entries={this.state.contributions}
-        votes={this.state.votes} />
-      <EntriesList
-        title='Interests'
-        type='interests'
-        entries={this.state.interests}
-        votes={this.state.votes} />
+    return (
+      <div className="contriboot">
+        {isLoggedin ?
+          <ShowLoginStatus
+            user={this.state.user} /> :
+          <Login />
+        }
 
-      {isLoggedin ?
-        <ShowLoginStatus
-          user={this.state.user} /> :
-        <Login />
-      }
-      {isLoggedin ?
-        <AddEntriesForm
-          onEntryAdd={this.handleEntryAdd} /> :
-        null
-      }
-    </div>;
+        <EntriesList
+          title='Contributions'
+          type='contributions'
+          entries={this.state.contributions}
+          votes={this.state.votes} />
+        <EntriesList
+          title='Interests'
+          type='interests'
+          entries={this.state.interests}
+          votes={this.state.votes} />
+
+        {isLoggedin ?
+          <AddEntriesForm
+            onEntryAdd={this.handleEntryAdd} /> :
+          null
+        }
+
+      </div>
+    );
   }
 });
 

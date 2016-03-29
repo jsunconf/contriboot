@@ -21,10 +21,12 @@ export default class extends React.Component {
    */
   render() {
     return (
-      <div className='loggedIn'>
-        You are logged in as {this.props.user.username} from Github
+      <div className='user'>
+        <div>
+          You are logged in as {this.props.user.username} from Github
+        </div>
         <button
-            className='button'
+            className='button button--small'
             type='button'
             onClick={() => {this.logout()}}>
           Logout
