@@ -28,23 +28,30 @@ export default class extends React.Component {
 
         <ul className='entries'>
           {this.props.entries.map((entry, index) => {
-            const votesObj = this.props.votes.find(vote => {
+            const key = entry['.key'],
+              isActive = this.props.currentEntryKey === key,
+              descriptionClasses = 'entry__description' +
+                (isActive ? '' : ' entry__description--hidden'),
+              votesObj = this.props.votes.find(vote => {
                 return vote['.key'] === entry['.key'];
               }),
               votes = votesObj && votesObj['.value'],
               voted = votesObj && localStorage.getItem(votesObj['.key']);
 
-            return <li key={index} className="entry">
-              <div className="entry__header">
-                <span className="entry__header__title">
+            return <li key={index} className='entry'>
+              <a href={`#${key}`}
+                  title={entry.title}
+                  className='entry__header'>
+                <span className='entry__header__title'>
                   {entry.title}
                 </span>
 
-                <span className="entry__header__votes">
+                <span className='entry__header__votes'>
                   {votes} &#9733;
                   {voted ?
                     <span>Voted</span> :
-                    <button type='button' className="entry__header__votes__button"
+                    <button type='button'
+                      className='entry__header__votes__button'
                       onClick={() => this.handleVote(entry['.key'], votes)}>
                         Vote
                     </button>
@@ -52,11 +59,11 @@ export default class extends React.Component {
 
                 </span>
 
-                <span className="entry__header__author">
+                <span className='entry__header__author'>
                   by {entry.user.username}
                 </span>
-              </div>
-              <div className="entry__description">
+              </a>
+              <div className={descriptionClasses}>
                 {entry.description}
               </div>
             </li>;

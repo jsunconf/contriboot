@@ -25,7 +25,8 @@ const App = React.createClass({
       contributions: [],
       interests: [],
       votes: [],
-      user: null
+      user: null,
+      currentEntryKey: null
     };
   },
 
@@ -43,6 +44,31 @@ const App = React.createClass({
     this.bindAsArray(contribRef, 'contributions');
     this.bindAsArray(interestsRef, 'interests');
     this.bindAsArray(votesRef, 'votes');
+  },
+
+  /**
+   * Subscribe to hashchange
+   */
+  componentDidMount: function() {
+    window.addEventListener('hashchange', this.checkHash, false);
+
+    this.checkHash();
+  },
+
+  /**
+   * Subscribe to hashchange
+   */
+  componentWillUnmount: function() {
+    window.removeEventListener('hashchange', this.checkHash, false);
+  },
+
+  /**
+   * When the hash changed
+   */
+  checkHash: function() {
+    const currentEntryKey = location.hash.substr(1);
+
+    this.setState({currentEntryKey});
   },
 
   /**
@@ -87,7 +113,7 @@ const App = React.createClass({
     const isLoggedin = this.state.user !== null;
 
     return (
-      <div className="contriboot">
+      <div className='contriboot'>
         {isLoggedin ?
           <ShowLoginStatus
             user={this.state.user} /> :
@@ -97,6 +123,7 @@ const App = React.createClass({
         <EntriesList
           title='Contributions'
           type='contributions'
+          currentEntryKey={this.state.currentEntryKey}
           entries={this.state.contributions}
           votes={this.state.votes} />
         <EntriesList
