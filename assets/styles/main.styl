@@ -1,6 +1,6 @@
 fieldset
   border: none
-  margin-bottom: 20px
+  margin-bottom: 1.25em
 
 input,
 textarea
@@ -8,51 +8,25 @@ textarea
 
 input[type="text"],
 textarea
-  padding: 15px 10px
-  font-size: 16px
+  padding: 1em .6em
+  font-size: 1rem
   display: block
   width: 100%
   border: none
 
 textarea
-  height: 100px
-
+  height: 6em
 
 .contriboot
-  max-width: 480px
-  margin: 30px 0 50px
-
-.entry
-  margin-bottom: 20px
-
+  width: 100%
   &__header
-    display: flex
-    justify-content: space-between
-    align-items: baseline
-    flex-wrap: wrap
-
-    &__title
-      font-size: 32px
-
-    &__votes
-      font-size: 16px
-
-      &__button
-        margin-left: 5px
-        color: #004b9f
-        background: none
-        border: none
-        font-size: 16px
-        cursor: pointer
-
-    &__author
-      width: 100%
-
-  &__description
-    &--hidden
-      display: none
+    max-width: 480px
+    margin: 1em auto
+    text-align: center
 
 .submit-form
+  max-width: 480px
+  margin: 1em auto
   &__header
     display: block
     text-align: center
@@ -73,6 +47,53 @@ textarea
   & input[type="radio"]:checked + label
     background-color: #0069b4
     box-shadow: 2px 2px 0px 2px #004b9f
+
+.entries-container
+  display: flex
+  flex-wrap: nowrap
+  @media (min-width: 50em)
+    flex-wrap: wrap
+.entries
+  width: 100%
+  max-width: 50em
+  margin: 2em
+  flex-grow: 1
+  flex-shrink: 1
+  @media (min-width: 50em)
+    width: 50%
+
+.entry
+  margin-bottom: 20px
+
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: baseline
+
+    &__title
+      width: 100%
+      h3
+        font-size: 1.75em
+        margin: 0
+      small
+        font-size: .5em
+        margin-left: 1em
+
+    &__votes
+      width: 4em
+      flex-shrink: 0
+
+      &__button
+        margin-left: 5px
+        color: #004b9f
+        background: none
+        border: none
+        font-size: 16px
+        cursor: pointer
+
+  &__description
+    &--hidden
+      display: none
 
 .user
   display: flex

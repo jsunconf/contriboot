@@ -114,23 +114,27 @@ const App = React.createClass({
 
     return (
       <div className='contriboot'>
-        {isLoggedin ?
-          <ShowLoginStatus
-            user={this.state.user} /> :
-          <Login />
-        }
+        <header className='contriboot__header'>
+          {isLoggedin ?
+            <ShowLoginStatus
+              user={this.state.user} /> :
+            <Login />
+          }
+        </header>
 
-        <EntriesList
-          title='Contributions'
-          type='contributions'
-          currentEntryKey={this.state.currentEntryKey}
-          entries={this.state.contributions}
-          votes={this.state.votes} />
-        <EntriesList
-          title='Interests'
-          type='interests'
-          entries={this.state.interests}
-          votes={this.state.votes} />
+        <section className='entries-container'>
+          <EntriesList
+            title='Contributions'
+            type='contributions'
+            currentEntryKey={this.state.currentEntryKey}
+            entries={this.state.contributions}
+            votes={this.state.votes} />
+          <EntriesList
+            title='Interests'
+            type='interests'
+            entries={this.state.interests}
+            votes={this.state.votes} />
+        </section>
 
         {isLoggedin ?
           <AddEntriesForm
@@ -143,4 +147,4 @@ const App = React.createClass({
   }
 });
 
-render(<App/>, document.querySelector('.mount'))
+render(<App/>, document.querySelector('body'))

@@ -23,10 +23,10 @@ export default class extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className='entries'>
         <h2>{this.props.title}</h2>
 
-        <ul className='entries'>
+        <ul>
           {this.props.entries.map((entry, index) => {
             const key = entry['.key'],
               isActive = this.props.currentEntryKey === key,
@@ -39,30 +39,33 @@ export default class extends React.Component {
               voted = votesObj && localStorage.getItem(votesObj['.key']);
 
             return <li key={index} className='entry'>
-              <a href={`#${key}`}
-                  title={entry.title}
-                  className='entry__header'>
-                <span className='entry__header__title'>
-                  {entry.title}
-                </span>
+              <div className='entry__header'>
+                <a href={`#${key}`}
+                    title={entry.title}
+                    className='entry__header__title'>
+                  <h3>
+                    {entry.title}
+                    <small className='entry__header__author'>
+                      by {entry.user.username}
+                    </small>
+                  </h3>
+                </a>
 
                 <span className='entry__header__votes'>
-                  {votes} &#9733;
                   {voted ?
-                    <span>Voted</span> :
+                    <button type='button'
+                      className='entry__header__votes__button' disabled>
+                        &#9733;
+                    </button> :
                     <button type='button'
                       className='entry__header__votes__button'
                       onClick={() => this.handleVote(entry['.key'], votes)}>
-                        Vote
+                        &#9734;
                     </button>
                   }
-
+                  {votes}
                 </span>
-
-                <span className='entry__header__author'>
-                  by {entry.user.username}
-                </span>
-              </a>
+              </div>
               <div className={descriptionClasses}>
                 {entry.description}
               </div>
