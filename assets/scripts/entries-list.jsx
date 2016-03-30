@@ -14,6 +14,7 @@ export default class extends React.Component {
   handleVote(key, votes) {
     const ref = new Firebase(`${FIREBASE_URL}/votes/${key}`);
     ref.set(votes + 1);
+    localStorage.setItem(key, true);
   }
 
   /**
@@ -30,7 +31,8 @@ export default class extends React.Component {
             const votesObj = this.props.votes.find(vote => {
                 return vote['.key'] === entry['.key'];
               }),
-              votes = votesObj && votesObj['.value'];
+              votes = votesObj && votesObj['.value'],
+              voted = votesObj && localStorage.getItem(votesObj['.key']);
 
             return <li key={index} className="entry">
               <div className="entry__header">
@@ -40,10 +42,14 @@ export default class extends React.Component {
 
                 <span className="entry__header__votes">
                   {votes} &#9733;
-                  <button type='button' className="entry__header__votes__button"
-                    onClick={() => this.handleVote(entry['.key'], votes)}>
-                      Vote
-                  </button>
+                  {voted ?
+                    <span>Voted</span> :
+                    <button type='button' className="entry__header__votes__button"
+                      onClick={() => this.handleVote(entry['.key'], votes)}>
+                        Vote
+                    </button>
+                  }
+
                 </span>
 
                 <span className="entry__header__author">
