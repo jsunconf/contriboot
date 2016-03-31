@@ -4,8 +4,7 @@ import ReactFireMixin from 'reactfire';
 
 import {FIREBASE_URL} from './config';
 
-import Login from './login.jsx'
-import ShowLoginStatus from './show-login-status.jsx'
+import User from './user.jsx'
 import EntriesList from './entries-list.jsx'
 import AddEntriesForm from './add-entries-form.jsx'
 
@@ -115,11 +114,8 @@ const App = React.createClass({
     return (
       <div className='contriboot'>
         <header className='contriboot__header'>
-          {isLoggedin ?
-            <ShowLoginStatus
-              user={this.state.user} /> :
-            <Login />
-          }
+          <User
+            user={this.state.user} />
         </header>
 
         <section className='entries-container'>

@@ -65,7 +65,7 @@ textarea
     width: 50%
 
 .entry
-  margin-bottom: 20px
+  margin-bottom: 40px
 
   &__header
     display: flex
@@ -82,18 +82,22 @@ textarea
         margin-left: 1em
 
     &__votes
+      display: flex
+      align-items: center
       width: 4em
       flex-shrink: 0
+      padding-left: 15px
 
       &__button
-        margin-left: 5px
+        margin-right: 5px
         color: #004b9f
         background: none
         border: none
-        font-size: 16px
+        font-size: 26px
         cursor: pointer
 
   &__description
+    padding: 10px 75px 0 10px
     &--hidden
       display: none
 
@@ -101,3 +105,13 @@ textarea
   display: flex
   justify-content: space-between
   align-items: baseline
+
+  &__message
+    display: inline-block
+    margin-right: 10px
+
+  &__button-login,
+  &__button-logout
+    cursor: pointer
+    box-shadow: 2px 2px 0px 2px #004b9f
+    padding: 4px 11px
