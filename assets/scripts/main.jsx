@@ -113,11 +113,6 @@ const App = React.createClass({
 
     return (
       <div className='contriboot'>
-        <header className='contriboot__header'>
-          <User
-            user={this.state.user} />
-        </header>
-
         <section className='entries-container'>
           <EntriesList
             title='Contributions'
@@ -131,6 +126,11 @@ const App = React.createClass({
             entries={this.state.interests}
             votes={this.state.votes} />
         </section>
+
+        <header className='contriboot__header'>
+          <User
+            user={this.state.user} />
+        </header>
 
         {isLoggedin ?
           <AddEntriesForm
