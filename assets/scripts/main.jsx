@@ -147,4 +147,4 @@ const App = React.createClass({
   }
 });
 
-render(<App/>, document.querySelector('body'))
+render(<App/>, document.querySelector('.mount'))
