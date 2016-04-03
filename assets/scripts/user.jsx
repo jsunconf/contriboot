@@ -29,7 +29,7 @@ export default class extends React.Component {
 
   renderLogin() {
     return (
-      <div>
+      <div className='user'>
         <div className="user__message">
           Log in to contribute
         </div>
@@ -45,7 +45,7 @@ export default class extends React.Component {
 
   renderLogOut() {
     return (
-      <div>
+      <div className='user'>
         <div className="user__message">
           Logged in as {this.props.user.username}
         </div>
@@ -63,10 +63,6 @@ export default class extends React.Component {
    * Render the login part
    */
   render() {
-    return (
-      <div className='user'>
-        {this.props.user ? this.renderLogOut() : this.renderLogin()}
-      </div>
-    )
+    return this.props.user ? this.renderLogOut() : this.renderLogin();
   }
 }

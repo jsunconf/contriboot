@@ -123,18 +123,17 @@ const App = React.createClass({
           <EntriesList
             title='Interests'
             type='interests'
+            currentEntryKey={this.state.currentEntryKey}
             entries={this.state.interests}
             votes={this.state.votes} />
         </section>
 
-        <header className='contriboot__header'>
-          <User
-            user={this.state.user} />
-        </header>
+        <h2>Add a contrib or interest</h2>
+
+        <User user={this.state.user} />
 
         {isLoggedin ?
-          <AddEntriesForm
-            onEntryAdd={this.handleEntryAdd} /> :
+          <AddEntriesForm onEntryAdd={this.handleEntryAdd} /> :
           null
         }
 

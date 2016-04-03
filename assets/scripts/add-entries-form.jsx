@@ -41,37 +41,36 @@ export default class extends React.Component {
       (this.state.type === 'contributions' ? 'Contribution' : 'Interest');
 
     return (
-      <form
-        className="submit-form"
+      <form className="submit-form"
         onSubmit={this.onSubmit.bind(this)}>
 
         <header className="submit-form__header">
           <h3>
             I want to submit a
           </h3>
+
+          <fieldset className="submit-form__type-selection">
+            <input type='radio'
+              onChange={event => this.setState({type: event.target.value})}
+              id='type--contributions'
+              name='type'
+              className=''
+              checked={this.state.type === 'contributions'}
+              value='contributions' />
+            <label className='button button--small' htmlFor='type--contributions'>Contribution</label>
+
+            <input type='radio'
+              onChange={event => this.setState({type: event.target.value})}
+              id='type--interests'
+              name='type'
+              className=''
+              checked={this.state.type === 'interests'}
+              value='interests' />
+            <label className='button button--small' htmlFor='type--interests'>Interest</label>
+
+          </fieldset>
+
         </header>
-
-        <fieldset className="submit-form__type-selection">
-          <input type='radio'
-            onChange={event => this.setState({type: event.target.value})}
-            id='type--contributions'
-            name='type'
-            className=''
-            checked={this.state.type === 'contributions'}
-            value='contributions' />
-          <label className='button button--small' htmlFor='type--contributions'>Contribution</label>
-
-          <input type='radio'
-            onChange={event => this.setState({type: event.target.value})}
-            id='type--interests'
-            name='type'
-            className=''
-            checked={this.state.type === 'interests'}
-            value='interests' />
-          <label className='button button--small' htmlFor='type--interests'>Interest</label>
-
-        </fieldset>
-
 
         <fieldset>
           <label htmlFor='title'>
