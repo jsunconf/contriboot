@@ -30,15 +30,14 @@ export default class extends React.Component {
           {this.props.entries.map((entry, index) => {
             const key = entry['.key'],
               isActive = this.props.currentEntryKey === key,
-              descriptionClasses = 'entry__description' +
-                (isActive ? '' : ' entry__description--hidden'),
+              classes = 'entry' + (isActive ? ' entry--active' : ''),
               votesObj = this.props.votes.find(vote => {
                 return vote['.key'] === entry['.key'];
               }),
               votes = votesObj && votesObj['.value'],
               voted = votesObj && localStorage.getItem(votesObj['.key']);
 
-            return <li key={index} className='entry'>
+            return <li key={index} className={classes}>
               <div className='entry__header'>
                 <a href={`#${key}`}
                     title={entry.title}
@@ -66,7 +65,7 @@ export default class extends React.Component {
                   {votes}
                 </span>
               </div>
-              <div className={descriptionClasses}>
+              <div className='entry__description'>
                 {entry.description}
               </div>
             </li>;
