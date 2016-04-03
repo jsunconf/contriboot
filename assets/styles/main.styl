@@ -74,8 +74,10 @@ textarea
   position: relative
   transition: all .3s ease-in-out
   &:hover, &:focus, &--active
-    border-color: #0069b4
+    border-color: rgba(0,0,0,0.14)
     background: rgba(0,0,0,0.07)
+  &--active
+    border-color: #0069b4
 
   &__header
     display: flex
@@ -130,3 +132,42 @@ textarea
     cursor: pointer
     box-shadow: 2px 2px 0px 2px #004b9f
     padding: 4px 11px
+
+/**
+ * Spinner
+ */
+.react-spinner {
+  position: relative;
+  width: 50px;
+  height: 32px;
+  left: 50%;
+  margin: 5em 0 2em 0
+}
+
+.react-spinner_bar {
+  -webkit-animation: react-spinner_spin 1.2s linear infinite;
+  -moz-animation: react-spinner_spin 1.2s linear infinite;
+  animation: react-spinner_spin 1.2s linear infinite;
+  border-radius: 5px;
+  background-color: white;
+  position: absolute;
+  width: 20%;
+  height: 7.8%;
+  top: -3.9%;
+  left: -10%;
+}
+
+@keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}
+
+@-moz-keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}
+
+@-webkit-keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}

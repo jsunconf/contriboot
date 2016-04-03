@@ -33,6 +33,7 @@
     "parallelshell": "^2.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-spinner": "^0.2.3",
     "reactfire": "^0.5.1",
     "stylus": "^0.53.0",
     "stylus-normalize": "^3.0.3",

@@ -4,9 +4,9 @@ import ReactFireMixin from 'reactfire';
 
 import {FIREBASE_URL} from './config';
 
-import User from './user.jsx'
-import EntriesList from './entries-list.jsx'
-import AddEntriesForm from './add-entries-form.jsx'
+import User from './user.jsx';
+import EntriesList from './entries-list.jsx';
+import AddEntriesForm from './add-entries-form.jsx';
 
 const App = React.createClass({
   /**
@@ -129,7 +129,7 @@ const App = React.createClass({
             votes={this.state.votes} />
         </section>
 
-        <h2>Add a contrib or interest</h2>
+        <h2>Add contrib or interest</h2>
 
         <User user={this.state.user} />
 
