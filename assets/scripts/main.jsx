@@ -102,6 +102,7 @@ const App = React.createClass({
       });
 
     votesRef.child(newEntryRef.key()).set(1)
+    location.hash = newEntryRef.key();
   },
 
   /**
