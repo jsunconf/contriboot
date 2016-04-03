@@ -34,7 +34,7 @@ export default class extends React.Component {
               votesObj = this.props.votes.find(vote => {
                 return vote['.key'] === entry['.key'];
               }),
-              votes = votesObj && votesObj['.value'],
+              votes = votesObj && votesObj['.value'] || 0,
               voted = votesObj && localStorage.getItem(votesObj['.key']);
 
             return <li key={index} className={classes}>
