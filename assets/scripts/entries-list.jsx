@@ -39,7 +39,12 @@ export default class extends React.Component {
           <div className='entry__header'>
             <a href={isActive ? '#none' : `#${key}`}
                 onClick={() => {
-                  location.hash = isActive ? 'none' : key;
+                  if (isActive) {
+                    location.hash = 'none';
+                    return;
+                  }
+
+                  location.hash = key;
                   setTimeout(() => {
                     zenscroll.to(document.getElementById(key));
                   }, 50);
