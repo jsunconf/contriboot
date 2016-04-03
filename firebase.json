@@ -1,0 +1,12 @@
+{
+  "firebase": "contriboot-2016",
+  "public": ".",
+  "ignore": [
+    "README.md",
+    "package.json",
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "**/assets/**"
+  ]
+}
