@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from 'react-spinner';
+import zenscroll from 'zenscroll';
 
 import {FIREBASE_URL} from './config';
 
@@ -36,7 +37,13 @@ export default class extends React.Component {
 
         return <li id={key} key={key} className={classes}>
           <div className='entry__header'>
-            <a href={`#${key}`}
+            <a href={isActive ? '#none' : `#${key}`}
+                onClick={() => {
+                  location.hash = isActive ? 'none' : key;
+                  setTimeout(() => {
+                    zenscroll.to(document.getElementById(key));
+                  }, 50);
+                }}
                 title={entry.title}
                 className='entry__header__title'>
               <h3>
