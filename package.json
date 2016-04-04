@@ -12,8 +12,9 @@
     "clean:images": "rm -rf static/images && mkdir static/images",
     "test": "npm run lint && npm run build",
     "lint": "eslint ./assets/scripts",
-    "build": "npm run clean && npm run build:css && npm run build:js",
-    "build:js": "browserify assets/scripts/main.js -t babelify | uglifyjs > static/main.js",
+    "copy:dist": "rm -rf build && mkdir -p build && cp index.html build && cp -r static build",
+    "build": "npm run clean && npm run build:css && npm run build:js && npm run copy:dist",
+    "build:js": "browserify assets/scripts/main.jsx -t [ babelify --presets [ es2015 react ] ] | uglifyjs > static/main.js",
     "build:css": "stylus --inline --compress -u autoprefixer-stylus assets/styles/main.styl -o static",
     "build:images": "npm run clean:images && cp -r assets/images/* static/images/"
   },
