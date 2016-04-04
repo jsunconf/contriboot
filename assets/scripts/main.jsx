@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import ReactFireMixin from 'reactfire';
+import zenscroll from 'zenscroll';
 
 import {FIREBASE_URL} from './config';
 
@@ -21,6 +22,7 @@ const App = React.createClass({
    */
   getInitialState: function() {
     return {
+      shallScroll: true,
       contributions: [],
       interests: [],
       votes: [],
@@ -52,6 +54,31 @@ const App = React.createClass({
     window.addEventListener('hashchange', this.checkHash, false);
 
     this.checkHash();
+  },
+
+  /**
+   * When the component did update
+   */
+  componentDidUpdate: function() {
+    const state = this.state,
+      interests = state.interests,
+      contributions = state.contributions,
+      currentEntryKey = state.currentEntryKey,
+      entriesCount = document.querySelectorAll('.entry').length,
+      didRender = contributions.length + interests.length === entriesCount;
+    let currentElement = null;
+
+    if (didRender && state.shallScroll && contributions.length &&
+        interests.length) {
+      this.setState({shallScroll: false});
+
+      currentElement = document.querySelector(
+        `[data-key='${currentEntryKey}']`);
+
+      if (currentElement) {
+        zenscroll.to(currentElement);
+      }
+    }
   },
 
   /**
@@ -99,10 +126,12 @@ const App = React.createClass({
         title: newEntry.title,
         description: newEntry.description,
         user: this.state.user
-      });
+      }),
+      newKey = newEntryRef.key();
 
-    votesRef.child(newEntryRef.key()).set(1)
-    location.hash = newEntryRef.key();
+    votesRef.child(newKey).set(1)
+    location.hash = newKey;
+    this.setState({shallScroll: true});
   },
 
   /**

@@ -35,19 +35,17 @@ export default class extends React.Component {
           votes = votesObj && votesObj['.value'] || 0,
           voted = votesObj && localStorage.getItem(votesObj['.key']);
 
-        return <li id={key} key={key} className={classes}>
+        return <li data-key={key} key={key} className={classes}>
           <div className='entry__header'>
             <a href={isActive ? '#none' : `#${key}`}
                 onClick={() => {
-                  if (isActive) {
-                    location.hash = 'none';
-                    return;
+                  const currentElement = document.querySelector(
+                    `[data-key='${key}']`);
+                  if (currentElement) {
+                    setTimeout(() => {
+                      zenscroll.intoView(currentElement);
+                    }, 10);
                   }
-
-                  location.hash = key;
-                  setTimeout(() => {
-                    zenscroll.to(document.getElementById(key));
-                  }, 50);
                 }}
                 title={entry.title}
                 className='entry__header__title'>
