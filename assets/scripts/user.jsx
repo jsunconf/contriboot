@@ -15,7 +15,7 @@ export default class extends React.Component {
       }
     }, {
       remember: 'sessionOnly',
-      scope: 'user'
+      scope: ''
     });
   }
 
