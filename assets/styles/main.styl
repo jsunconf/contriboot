@@ -59,23 +59,31 @@ textarea
   display: flex
   flex-wrap: nowrap
   justify-content: center
+  flex-direction: column
   width: 100%
+
   @media (min-width: 50em)
     flex-wrap: wrap
+    flex-direction: row
+
 .entries
   width: 100%
   max-width: 50em
-  margin: 2em
+  margin: 0
   flex-grow: 1
   flex-shrink: 1
+
   @media (min-width: 50em)
     width: 50%
+    margin: 2em
+
 
 .entry
   margin-bottom: 10px
   border: 4px solid transparent
   position: relative
   transition: all .3s ease-in-out
+
   &:hover, &:focus, &--active
     border-color: rgba(0,0,0,0.14)
     background: rgba(0,0,0,0.07)
