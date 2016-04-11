@@ -1,4 +1,7 @@
 import React from 'react';
+import marked from 'marked';
+import toMarkdown from 'to-markdown';
+import Editor from 'react-medium-editor';
 
 const initialState = {
   type: 'contributions',
@@ -86,11 +89,19 @@ export default class extends React.Component {
             Description
           </label>
 
-          <textarea
-            onChange={event => this.setState({description: event.target.value})}
+          <Editor
+            className="textarea"
             id='description'
             name='description'
-            value={this.state.description} />
+            text={marked(this.state.description)}
+            onChange={html => this.setState({description: toMarkdown(html)})}
+            options={{
+              paste: {
+                cleanPastedHTML: true
+              },
+              toolbar: {
+                buttons: []
+              }}}/>
         </fieldset>
 
         <button
